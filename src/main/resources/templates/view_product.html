@@ -1,101 +1,145 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
 </head>
 <body>
-	<section>
-		<div class="container card-sh"
-			style="margin-top: 70px; margin-bottom: 100px">
+<section>
+	<div class="container card-sh" style="margin-top: 70px; margin-bottom: 100px">
+		<div class="col-md-12 p-5">
+			<div class="row">
+				<th:block th:if="${session.succMsg}">
+					<p class="text-success alert alert-success text-center" role="alert">[[${session.succMsg}]]</p>
+					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
 
-			<div class="col-md-12 p-5">
-				<div class="row">
-					<th:block th:if="${session.succMsg}">
-						<p class="text-success alert alert-success text-center" role="alert">[[${session.succMsg}]]</p>
-						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-					</th:block>
+				<th:block th:if="${session.errorMsg}">
+					<p class="text-danger text-center alert alert-danger">[[${session.errorMsg}]]</p>
+					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+				</th:block>
 
-					<th:block th:if="${session.errorMsg}">
-						<p class="text-danger text-center  alert alert-danger">[[${session.errorMsg}]]</p>
-						<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+				<div class="col-md-6 text-center">
+					<img alt="" th:src="@{'/img/product_img/'+${product.image}}" width="300px" height="250px">
+				</div>
 
-					</th:block>
-					<div class="col-md-6 text-end">
-						<img alt="" th:src="@{'/img/product_img/'+${product.image}}" width="300px"
-							height="250px">
-					</div>
-
-					<div class="col-md-6">
-
-						<p class="fs-3">[[${product.title}]]</p>
-						<p>
-							<span class="fw-bold">Description : </span><br>[[${product.description}]]
-						</p>
-						<p>
-							<span class="fw-bold"> Product Details: </span> <br> Status
-							:
-							<th:block th:if="${product.stock>0}">
-								<span class="badge bg-success">Available</span>
-							</th:block>
-
-							<th:block th:unless="${product.stock>0}">
-								<span class="badge bg-warning">out of stock</span>
-							</th:block>
-
-
-							<br> Category: [[${product.category}]]<br> Policy : 7
-							Days Replacement & Return
-						</p>
-						<p class="fs-5 fw-bold">
-							Price :&nbsp; &nbsp; &nbsp; &nbsp;<i class="fas fa-rupee-sign"></i>
-							[[${product.discountPrice}]] <span
-								class="fs-6 text-decoration-line-through text-secondary">[[${product.price}]]</span>
-							<span class="fs-6  text-success">[[${product.discount}]]%
-								off</span>
-						</p>
-
-						<div class="row">
-							<div class="col-md-4 text-success text-center p-2">
-								<i class="fas fa-money-bill-wave fa-2x"></i>
-								<p>Cash On Delivery</p>
-							</div>
-							<div class="col-md-4 text-danger text-center p-2">
-								<i class="fas fa-undo-alt fa-2x"></i>
-								<p>Return Available</p>
-							</div>
-							<div class="col-md-4 text-primary text-center p-2">
-								<i class="fas fa-truck-moving fa-2x"></i>
-								<p>Free Shipping</p>
-							</div>
-						</div>
-
+				<div class="col-md-6">
+					<p class="fs-3 mb-2">[[${product.title}]]</p>
+					<p class="mb-3">
+						<span class="fw-bold">Description:</span><br>[[${product.description}]]
+					</p>
+					<p class="mb-3">
+						<span class="fw-bold">Product Details:</span><br>
+						<span class="text-muted">Status:</span>
 						<th:block th:if="${product.stock>0}">
-							<th:block th:if="${user==null}">
-								<a href="/signin" class="btn btn-danger col-md-12">Add To
-									Cart</a>
-							</th:block>
-
-							<th:block th:unless="${user==null}">
-								<a
-									th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}"
-									class="btn btn-danger col-md-12">Add To Cart</a>
-							</th:block>
-
+							<span class="badge bg-success ms-1">Available</span>
 						</th:block>
-
 						<th:block th:unless="${product.stock>0}">
-							<a href="#" class="btn text-white btn-warning col-md-12">Out
-								of Stock</a>
+							<span class="badge bg-warning ms-1">Out of Stock</span>
 						</th:block>
+						<br>
+						<span class="text-muted">Category:</span> [[${product.category}]]
+					</p>
+					<p class="mb-3">
+						<span class="fw-bold">Shipping & Returns:</span><br>
+						<span class="badge bg-success me-1">Cash on Delivery</span>
+						<span class="badge bg-primary">Online Payment</span>
+					</p>
+					<p class="mb-3">
+						<span class="fw-bold">Policy Details:</span><br>
+					<ul class="list-unstyled text-muted">
+						<li>7 Days Return Policy, Replacement Available</li>
+						<li>Estimated Time of Arrival: 2 Hours</li>
+						<li>Rating:
+							<span class="stars">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </span>
+						</li>
+						<li>Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="/privacy-policy" class="text-decoration-none">privacy policy</a>.</li>
+					</ul>
+					</p>
+					<p class="fs-5 fw-bold mb-4">
+						Price: RWF [[${product.discountPrice}]]
+						<span class="fs-6 text-decoration-line-through text-secondary">RWF [[${product.price}]]</span>
+						<span class="fs-6 text-success">[[${product.discount}]]% off</span>
+					</p>
 
-					</div>
+					<th:block th:if="${product.stock>0}">
+						<th:block th:if="${user==null}">
+							<a href="/signin" class="btn btn-custom-primary col-md-12">
+								<i class="fas fa-shopping-bag me-2"></i>Place Order
+							</a>
+						</th:block>
+						<th:block th:unless="${user==null}">
+							<a th:href="@{'/user/addCart?pid='+${product.id}+'&uid='+${user.id}}" class="btn btn-custom-primary col-md-12">
+								<i class="fas fa-shopping-bag me-2"></i>Place Order
+							</a>
+						</th:block>
+					</th:block>
+					<th:block th:unless="${product.stock>0}">
+						<a href="#" class="btn text-white btn-warning col-md-12">Out of Stock</a>
+					</th:block>
 				</div>
 			</div>
 		</div>
+	</div>
+</section>
+<style>
+	:root {
+        --dark-green: #164d33;
+        --white: #fff;
+        --light-gray: #f8f9fa;
+    }
 
+    .btn-custom-primary {
+        background-color: var(--dark-green) !important;
+        border-color: var(--dark-green) !important;
+        color: var(--white) !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
 
-	</section>
+    .btn-custom-primary:hover {
+        background-color: #0f2f1f !important;
+        border-color: #0f2f1f !important;
+        color: var(--white) !important;
+    }
+
+    .btn-danger {
+        display: none; /* Hide the default btn-danger style if not needed */
+    }
+
+    .badge.bg-primary {
+        background-color: var(--dark-green) !important;
+    }
+
+    .stars {
+        color: #000;
+        font-size: 1rem;
+    }
+
+    .text-muted {
+        color: #666 !important;
+    }
+
+    ul.list-unstyled li {
+        margin-bottom: 8px;
+    }
+
+    ul.list-unstyled li a {
+        color: var(--dark-green);
+    }
+
+    ul.list-unstyled li a:hover {
+        color: #0f2f1f;
+        text-decoration: underline;
+    }
+</style>
 </body>
 </html>

@@ -125,39 +125,40 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDtls updateUserProfile(UserDtls user, MultipartFile img) {
+		UserDtls dbUser = userRepository.findById(user.getId()).orElse(null);
 
-		UserDtls dbUser = userRepository.findById(user.getId()).get();
+		if (dbUser == null) {
+			return null;
+		}
 
 		if (!img.isEmpty()) {
-			dbUser.setProfileImage(img.getOriginalFilename());
-		}
+			String fileName = System.currentTimeMillis() + "_" + img.getOriginalFilename();
+			dbUser.setProfileImage(fileName);
 
-		if (!ObjectUtils.isEmpty(dbUser)) {
+			try {
+				// Directory to save uploaded files
+				String uploadDir = System.getProperty("user.dir") + "/uploads/profile_img";
+				File uploadPath = new File(uploadDir);
 
-			dbUser.setName(user.getName());
-			dbUser.setMobileNumber(user.getMobileNumber());
-			dbUser.setAddress(user.getAddress());
-			dbUser.setCity(user.getCity());
-			dbUser.setState(user.getState());
-			dbUser.setPincode(user.getPincode());
-			dbUser = userRepository.save(dbUser);
-		}
+				if (!uploadPath.exists()) {
+					uploadPath.mkdirs(); // create directory if it doesn't exist
+				}
 
-		try {
-			if (!img.isEmpty()) {
-				File saveFile = new ClassPathResource("static/img").getFile();
-
-				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "profile_img" + File.separator
-						+ img.getOriginalFilename());
-
-//			System.out.println(path);
+				Path path = Paths.get(uploadDir, fileName);
 				Files.copy(img.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
-		return dbUser;
+		dbUser.setName(user.getName());
+		dbUser.setMobileNumber(user.getMobileNumber());
+		dbUser.setAddress(user.getAddress());
+		dbUser.setCity(user.getCity());
+		dbUser.setState(user.getState());
+		dbUser.setPincode(user.getPincode());
+
+		return userRepository.save(dbUser);
 	}
 
 	@Override

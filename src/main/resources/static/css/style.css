@@ -1,13 +1,122 @@
-@charset "ISO-8859-1";
-
 .card-sh {
-	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.card-sh:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .cat-div {
-	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .error {
-	color: red;
+    color: red;
+}
+
+/* Custom Theme Variables */
+:root {
+    --dark-green: #164d33;
+    --white: #fff;
+    --light-gray: #f8f9fa;
+}
+
+/* Override Bootstrap Primary with Dark Green */
+.bg-primary {
+    background-color: var(--dark-green) !important;
+}
+
+.btn-primary {
+    background-color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+}
+
+.btn-primary:hover {
+    background-color: #1e3a1f !important;
+    border-color: #1e3a1f !important;
+}
+
+.list-group-item.active {
+    background-color: var(--dark-green) !important;
+    color: var(--white) !important;
+    border-color: var(--dark-green) !important;
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+    background-color: var(--dark-green) !important;
+    color: var(--white) !important;
+}
+
+.pagination .page-link {
+    color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+    color: var(--white) !important;
+}
+
+.pagination .page-link:hover {
+    background-color: var(--dark-green) !important;
+    color: var(--white) !important;
+}
+
+/* Search Bar Adjustments */
+.input-group .btn-light {
+    background-color: var(--white) !important;
+    color: var(--dark-green) !important;
+    border-color: var(--dark-green) !important;
+}
+
+.input-group .btn-light:hover {
+    background-color: var(--dark-green) !important;
+    color: var(--white) !important;
+}
+
+.form-control {
+    border-color: var(--dark-green) !important;
+}
+
+/* Category Sidebar */
+.card.bg-body-tertiary {
+    background-color: var(--light-gray) !important;
+}
+
+/* Footer Consistency */
+.footer-section {
+    background-color: var(--dark-green) !important;
+    color: var(--white) !important;
+}
+
+.footer-section a {
+    color: var(--white) !important;
+}
+
+.footer-section a:hover {
+    opacity: 0.8;
+}
+
+/* Item and Category Names */
+.item-name {
+    color: #333333 !important; /* Dark gray for item and category names */
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+}
+
+.item-name:hover {
+    color: #555555 !important; /* Slightly lighter gray on hover */
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .col-md-2, .col-md-10 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }

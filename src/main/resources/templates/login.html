@@ -1,63 +1,231 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<style>
+		* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            margin: auto;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+        }
+
+        .col-md-6 {
+            width: 100%;
+            padding: 0;
+        }
+
+        .card {
+            background: white;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+        .card-header {
+            background: transparent;
+            border: none;
+            padding: 0 0 20px;
+            text-align: center;
+        }
+
+        .fs-4 {
+            font-size: 28px !important;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .fs-4::before {
+            content: '\f2f6'; /* Font Awesome user icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #1d6042;
+        }
+
+        .alert {
+            font-size: 14px;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .card-body {
+            padding: 0;
+        }
+
+        .form-label {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: normal;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #1d6042;
+            box-shadow: 0 0 5px rgba(29, 96, 66, 0.2);
+        }
+
+        .mb-3 {
+            margin-bottom: 20px !important;
+        }
+
+        .btn {
+            width: auto;
+            padding: 10px 20px;
+            background: #1d6042;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 0 auto;
+            min-width: 100px;
+        }
+
+        .btn:hover {
+            background: #164d33;
+        }
+
+        .btn::before {
+            content: '\f090'; /* Font Awesome sign-in icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .card-footer {
+            padding: 20px 0 0;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .card-footer a {
+            color: #1d6042;
+            text-decoration: none;
+        }
+
+        .card-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .fs-4 {
+                font-size: 24px !important;
+            }
+
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+	</style>
 </head>
 <body>
-	<section>
-
-		<div class="container mt-5 p-5">
-			<div class="row">
-				<div class="col-md-6 p-5">
-					<img alt="" src="img/ecom.png" width="100%" height="400px">
-				</div>
-				<div class="col-md-6 mt-3 p-5">
-					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-header">
-							<p class="fs-4 text-center">Login</p>
-							<div th:if="${param.error}"
-								class="alert alert-danger text-center">
-
-								<th:block
-									th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
-									[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-								</th:block>
-
-
-
+<section>
+	<div class="container mt-5 p-5">
+		<div class="row">
+			<div class="col-md-6 p-5">
+				<img alt="" src="img/login.png" width="100%" height="400px">
+			</div>
+			<div class="col-md-6 mt-3 p-5">
+				<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+					<div class="card-header">
+						<p class="fs-4 text-center">Login</p>
+						<div th:if="${param.error}" class="alert alert-danger text-center">
+							<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+								[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+							</th:block>
+						</div>
+						<div th:if="${param.logout}" class="alert alert-success">
+							Logout Sucessfully
+						</div>
+					</div>
+					<div class="card-body">
+						<form action="/login" method="post">
+							<div class="mb-3">
+								<label class="form-label">Email</label>
+								<input required class="form-control" name="username" type="email">
 							</div>
+							<div class="mb-3">
+								<label class="form-label">Password</label>
+								<input required class="form-control" name="password" type="password">
+							</div>
+							<button type="submit" class="btn bg-primary text-white col-md-12">Login</button>
+						</form>
+					</div>
+					<div class="card-footer text-center">
+						<a href="/forgot-password" class="text-decoration-none">Forgot Password</a><br>
+						Don't have an account? <a href="/register" class="text-decoration-none">register</a>
 
-							<div th:if="${param.logout}" class="alert alert-success">
-								Logout Sucessfully</div>
-						</div>
-						<div class="card-body">
-							<form action="/login" method="post">
-								<div class="mb-3">
-									<label class="form-label">Email</label> <input required
-										class="form-control" name="username" type="email">
-								</div>
-
-								<div class="mb-3">
-									<label class="form-label">Password</label> <input required
-										class="form-control" name="password" type="password">
-								</div>
-								<button type="submit"
-									class="btn bg-primary text-white col-md-12">Login</button>
-							</form>
-						</div>
-
-						<div class="card-footer text-center">
-							<a href="/forgot-password" class="text-decoration-none">Forgot Password</a><br>
-							Don't have an account ? <a href="#" class="text-decoration-none">Create
-								one </a>
-						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-	</section>
+	</div>
+</section>
 </body>
 </html>

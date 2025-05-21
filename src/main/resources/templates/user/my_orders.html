@@ -1,60 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>My Orders</title>
 </head>
 <body>
-	<section>
-		<div class="container mt-5 p-5">
-			<div class="row">
-				<p class="text-center fs-3">My Orders</p>
-				<th:block th:if="${session.succMsg}">
-					<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-				</th:block>
+<section>
+	<div class="container mt-5 p-5">
+		<div class="row">
+			<p class="text-center fs-3">My Orders</p>
+			<th:block th:if="${session.succMsg}">
+				<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
+				<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+			</th:block>
 
-				<th:block th:if="${session.errorMsg}">
-					<p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
-				</th:block>
-				<div class="col-md-12 ">
-
-					<table class="table table-bordered card-sh">
-						<thead >
-							<tr >
-								<th scope="col">Order Id</th>
-								<th scope="col">Date</th>
-								<th scope="col">Product Details</th>
-								<th scope="col">Price</th>
-								<th scope="col">Status</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="o:${orders}">
-								<th scope="row">[[${o.orderId}]]</th>
-								<td>[[${o.orderDate}]]</td>
-								<td>[[${o.product.title}]]</td>
-								<td>Quantity : [[${o.quantity}]] <br>Price :
-									[[${o.price}]] <br>Total Price :[[${o.quantity *
-									o.price}]]
-								</td>
-								<td>[[${o.status}]]</td>
-								<td><th:block th:if="${o.status!='Cancelled'}">
-										<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6' }"
-											class="btn btn-sm btn-danger">Cancel</a>
-									</th:block> <th:block th:unless="${o.status!='Cancelled'}">
-										<a href="#" class="btn btn-sm btn-danger disabled" >Cancel</a>
-									</th:block></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<th:block th:if="${session.errorMsg}">
+				<p class="text-danger fw-bold text-center">[[${session.errorMsg}]]</p>
+				<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
+			</th:block>
+			<div class="col-md-12">
+				<table class="table table-bordered table-striped card-sh">
+					<thead style="background-color: #f0f0f0;">
+					<tr>
+						<th scope="col" class="text-center">Date</th>
+						<th scope="col" class="text-center">Product Details</th>
+						<th scope="col" class="text-center">Price</th>
+						<th scope="col" class="text-center">Status</th>
+						<th scope="col" class="text-center">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="o:${orders}">
+						<td class="text-center">[[${o.orderDate}]]</td>
+						<td class="text-center">[[${o.product.title}]]</td>
+						<td class="text-center">Quantity: [[${o.quantity}]]<br>Price: [[${o.price}]]<br>Total Price: [[${o.quantity * o.price}]]</td>
+						<td class="text-center">[[${o.status}]]</td>
+						<td class="text-center">
+							<th:block th:if="${o.status!='Cancelled'}">
+								<a th:href="@{'/user/update-status?id='+${o.id}+'&st=6'}" class="btn btn-sm btn-custom-cancel">
+									<i class="fas fa-times me-1"></i> Cancel
+								</a>
+							</th:block>
+							<th:block th:unless="${o.status!='Cancelled'}">
+								<a href="#" class="btn btn-sm btn-custom-cancel disabled">
+									<i class="fas fa-times me-1"></i> Cancel
+								</a>
+							</th:block>
+						</td>
+					</tr>
+					</tbody>
+				</table>
 			</div>
-
 		</div>
-	</section>
+	</div>
+</section>
+<style>
+	:root {
+        --dark-green: #164d33;
+        --white: #fff;
+        --light-gray: #f8f9fa;
+    }
+
+    .btn-custom-cancel {
+        background-color: var(--dark-green) !important;
+        border-color: var(--dark-green) !important;
+        color: var(--white) !important;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-custom-cancel:hover {
+        background-color: #0f2f1f !important;
+        border-color: #0f2f1f !important;
+        color: var(--white) !important;
+    }
+
+    .btn-custom-cancel.disabled {
+        background-color: #a3bffa !important;
+        border-color: #a3bffa !important;
+        color: #666 !important;
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    .btn-custom-cancel.disabled:hover {
+        background-color: #a3bffa !important;
+        border-color: #a3bffa !important;
+        color: #666 !important;
+    }
+
+    th {
+        font-weight: 600;
+    }
+
+    td {
+        vertical-align: middle;
+    }
+</style>
 </body>
 </html>

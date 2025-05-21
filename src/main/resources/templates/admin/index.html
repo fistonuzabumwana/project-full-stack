@@ -1,100 +1,151 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Admin Dashboard</title>
 </head>
 <body>
-	<section>
-		<div class="container p-5">
-			<p class="text-center fs-3 mt-4">Admin Dashboard</p>
-			<div class="row p-5">
-				<div class="col-md-4 mt-2">
-					<a href="/admin/loadAddProduct" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-primary">
-								<i class="fa-solid fa-square-plus fa-3x"></i>
-								<h4>Add Product</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
-				<div class="col-md-4 mt-2">
-					<a href="/admin/category" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-warning">
-								<i class="fa-solid fa-list fa-3x"></i>
-								<h4>Add Category</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
-				<div class="col-md-4 mt-2">
-					<a href="/admin/products" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-success">
-								<i class="fa-solid fa-table-list fa-3x"></i>
-								<h4>View Product</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
-				<div class="col-md-4 mt-4">
-					<a href="/admin/orders" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-warning">
-								<i class="fa-solid fa-box-open fa-3x"></i>
-								<h4>Orders</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
-				<div class="col-md-4 mt-4">
-					<a href="/admin/users?type=1" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-primary">
-								<i class="fa-solid fa-circle-user fa-3x"></i>
-								<h4>Users</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
-				<div class="col-md-4 mt-4">
-					<a href="/admin/add-admin" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-primary">
-								<i class="fa-solid fa-user-plus fa-3x"></i>
-								<h4>Add Admin</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<div class="col-md-4 mt-4">
-					<a href="/admin/users?type=2" class="text-decoration-none">
-						<div class="card card-sh">
-							<div class="card-body text-center text-primary">
-								<i class="fa-solid fa-circle-user fa-3x"></i>
-								<h4>Admin</h4>
-							</div>
-						</div>
-					</a>
-				</div>
-
-
+<section>
+	<div class="container-fluid bg-primary p-4 mt-5 ">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
 			</div>
 		</div>
-	</section>
+
+	</div>
+	<div class="container-fluid p-5">
+		<!-- Time Counter -->
+		<div class="text-center mb-4">
+			<h6 id="time-counter" class="text-muted"></h6>
+		</div>
+		<div class="row">
+			<!-- Sidebar -->
+			<div class="col-md-3">
+				<div class="list-group">
+					<a href="/admin/loadAddProduct" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-square-plus me-2" style="color: #1d6042; font-size: 2rem;"></i> Add Product
+					</a>
+					<a href="/admin/category" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-list me-2" style="color: #1d6042; font-size: 2rem;"></i> Add Category
+					</a>
+					<a href="/admin/products" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-table-list me-2" style="color: #1d6042; font-size: 2rem;"></i> View Product
+					</a>
+					<a href="/admin/orders" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-box-open me-2" style="color: #1d6042; font-size: 2rem;"></i> Orders
+					</a>
+					<a href="/admin/users?type=1" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-circle-user me-2" style="color: #1d6042; font-size: 2rem;"></i> Users
+					</a>
+					<a href="/admin/add-admin" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-user-plus me-2" style="color: #1d6042; font-size: 2rem;"></i> Add Admin
+					</a>
+					<a href="/admin/users?type=2" class="list-group-item list-group-item-action">
+						<i class="fa-solid fa-circle-user me-2" style="color: #1d6042; font-size: 2rem;"></i> Admin
+					</a>
+				</div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="col-md-9">
+				<h2 class="text-center mb-4">Admin Dashboard</h2>
+				<div class="card p-4 mb-4 text-center">
+					<h4 class="text-dark">
+                            <span th:if="${user != null && user.name != null}">
+                                Welcome [[${user.name}]]!
+                            </span>
+						<span th:unless="${user != null && user.name != null}">
+                                Welcome Admin!
+                            </span>
+					</h4>
+					<p class="text-muted">Here you can manage all categories, products, users, and admins.</p>
+				</div>
+
+				<div class="row g-4">
+					<div class="col-md-3">
+						<div class="card card-sh text-center p-3">
+							<h5>Categories</h5>
+							<p class="display-6" th:text="${categories != null} ? ${#lists.size(categories)} : 0">0</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card card-sh text-center p-3">
+							<h5>Products</h5>
+							<p class="display-6" th:text="${products != null} ? ${#lists.size(products)} : 0">0</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card card-sh text-center p-3">
+							<h5>Users</h5>
+							<p class="display-6" th:text="${users != null} ? ${#lists.size(users)} : 0">0</p>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="card card-sh text-center p-3">
+							<h5>Admins</h5>
+							<p class="display-6" th:text="${admins != null} ? ${#lists.size(admins)} : 0">0</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	.list-group-item {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        transition: background-color 0.3s;
+    }
+
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+        color: #164d33;
+    }
+
+    .list-group-item i {
+        font-size: 2rem;
+    }
+
+    .card-sh {
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .display-6 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: #1d6042;
+    }
+
+    h5 {
+        color: #333;
+        font-weight: 600;
+    }
+</style>
+<script>
+	function updateTime() {
+        const now = new Date();
+        const options = {
+            timeZone: 'Africa/Kigali',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        const formattedTime = formatter.format(now).replace(' at', '');
+        document.getElementById('time-counter').textContent = `Current Time: ${formattedTime} CAT`;
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call
+</script>
 </body>
 </html>

@@ -1,369 +1,384 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+	<meta charset="ISO-8859-1">
+	<title>Fruitmart</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="/css/style.css">
+	<style>
+		html, body {
+            height: 100%;
+            margin: 0;
+        }
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+        body {
+            display: flex;
+            flex-direction: column;
+        }
 
-<link rel="stylesheet" href="/css/style.css">
+        .content-wrap {
+            flex: 1 0 auto;
+        }
+
+        /* Override Bootstrap Primary Colors */
+        .btn-primary {
+            background-color: #1d6042 !important;
+            border-color: #1d6042 !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #164d33 !important;
+            border-color: #164d33 !important;
+        }
+
+        /* Remove Yellow and Red */
+        .btn-warning, .btn-danger {
+            background-color: #1d6042 !important;
+            border-color: #1d6042 !important;
+        }
+
+        .btn-warning:hover, .btn-danger:hover {
+            background-color: #164d33 !important;
+            border-color: #164d33 !important;
+        }
+
+        /* Header Styles */
+        .navbar {
+            background-color: white !important;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1d6042 !important;
+        }
+
+        .navbar-brand svg {
+            margin-right: 8px;
+            fill: #1d6042;
+        }
+
+        .navbar-nav.me-auto {
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 15px !important;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1d6042 !important;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #1d6042;
+        }
+
+        .navbar-nav.ms-auto {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 991px) {
+            .navbar-nav.me-auto {
+                justify-content: flex-start;
+            }
+
+            .navbar-nav.ms-auto {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        /* Footer Styles */
+        .footer-section {
+            background: #1d6042;
+            color: white;
+            padding: 2rem 0;
+            flex-shrink: 0;
+        }
+
+        .footer-section::before {
+            display: none;
+        }
+
+        .footer-about, .footer-section h5, .footer-section ul, .payment-methods {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section h5 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section ul li:hover {
+            transform: translateX(5px);
+        }
+
+        .hover-text-primary:hover {
+            color: white !important;
+            opacity: 0.8;
+        }
+
+        .icon-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: white;
+            color: #1d6042;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .icon-circle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background-color: #f8f9fa;
+        }
+
+        .payment-methods i {
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .payment-methods i:hover {
+            color: #f8f9fa !important;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Footer */
+        @media (max-width: 768px) {
+            .footer-section {
+                text-align: center;
+            }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+
+            .footer-section ul li {
+                justify-content: center !important;
+            }
+        }
+	</style>
 </head>
-<style>
-
-	html, body {
-       height: 100%;
-       margin: 0;
-   }
-
-   body {
-       display: flex;
-       flex-direction: column;
-   }
-
-   .content-wrap {
-       flex: 1;
-   }
-
-   /* Footer Styles - Modified */
-   .footer-section {
-       background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-       color: white;
-       padding: 0.5rem 0; /* Further reduced vertical padding */
-       flex-shrink: 0;
-   }
-
-   /* Keep all your existing footer styles below */
-   .footer-section::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-       opacity: 0.05;
-       z-index: 0;
-   }
-   /* Footer Styles */
-   .footer-section {
-       background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
-       color: white;
-       position: relative;
-       overflow: hidden;
-       padding: 1rem 0; /* Reduced vertical padding for lower height */
-       flex-shrink: 0;   /* Ensures it doesn?t shrink */
-   }
-
-   /* Background image overlay */
-   .footer-section::before {
-       content: '';
-       position: absolute;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       background: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-       opacity: 0.05;
-       z-index: 0;
-   }
-
-   /* Content Layering */
-   .footer-about, .footer-section h5, .footer-section ul, .payment-methods {
-       position: relative;
-       z-index: 1;
-   }
-
-   .footer-section h5 {
-       font-weight: 600;
-       margin-bottom: 1rem;
-       position: relative;
-       padding-bottom: 8px;
-   }
-
-   .footer-section h5::after {
-       content: '';
-       position: absolute;
-       left: 0;
-       bottom: 0;
-       width: 50px;
-       height: 2px;
-       background-color: #2563eb;
-   }
-
-   .footer-section ul li {
-       margin-bottom: 0.5rem;
-       transition: all 0.3s ease;
-   }
-
-   .footer-section ul li:hover {
-       transform: translateX(5px);
-   }
-
-   .hover-text-primary:hover {
-       color: #2563eb !important;
-   }
-
-   .icon-circle {
-       display: inline-flex;
-       align-items: center;
-       justify-content: center;
-       width: 35px;
-       height: 35px;
-       border-radius: 50%;
-       transition: all 0.3s ease;
-   }
-
-   .icon-circle:hover {
-       transform: translateY(-3px);
-       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-   }
-
-   .text-muted {
-       opacity: 0.8;
-       transition: all 0.3s ease;
-   }
-
-   .payment-methods i {
-       font-size: 1.4rem;
-       transition: all 0.3s ease;
-   }
-
-   .payment-methods i:hover {
-       color: #2563eb !important;
-       transform: translateY(-3px);
-   }
-
-   @media (max-width: 768px) {
-       .footer-section {
-           text-align: center;
-       }
-
-       .footer-section h5::after {
-           left: 50%;
-           transform: translateX(-50%);
-       }
-
-       .social-icons {
-           justify-content: center;
-       }
-
-       .footer-section ul li {
-           justify-content: center !important;
-       }
-   }
-
-</style>
 <body>
-	<!-- Start Navbar  -->
-	<nav class="navbar navbar-expand-lg  bg-primary fixed-top navbar-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"><i
-				class="fa-solid fa-cart-shopping"></i> Ecom Store</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<th:block th:if="${user==null}">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="/"><i class="fa-solid fa-house"></i>
-								Home</a></li>
+<!-- Start Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-unity" viewBox="0 0 16 16">
+				<path d="M15 11.2V3.733L8.61 0v2.867l2.503 1.466c.099.067.099.2 0 .234L8.148 6.3c-.099.067-.197.033-.263 0L4.92 4.567c-.099-.034-.099-.2 0-.234l2.504-1.466V0L1 3.733V11.2v-.033.033l2.438-1.433V6.833c0-.1.131-.166.197-.133L6.6 8.433c.099.067.132.134.132.234v3.466c0 .1-.132.167-.198.134L4.031 10.8l-2.438 1.433L7.983 16l6.391-3.733-2.438-1.434L9.434 12.3c-.099.067-.198 0-.198-.133V8.7c0-.1.066-.2.132-.233l2.965-1.734c.099-.066.197 0 .197.134V9.8z"/>
+			</svg>
+			Fruitmart
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<th:block th:if="${user==null}">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+				</th:block>
+				<th:block th:unless="${user==null}">
+					<li class="nav-item" th:if="${user.role=='ROLE_ADMIN'}"><a class="nav-link active" aria-c	urrent="page" href="/admin/">Home</a></li>
+					<li class="nav-item" th:if="${user.role=='ROLE_USER'}"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+				</th:block>
+				<li class="nav-item"><a class="nav-link active" aria-current="page" href="/products">Product</a></li>
+				<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">About</a></li>
+				<li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Contact</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+					<ul class="dropdown-menu">
+						<li th:each="c:${categorys}"><a class="dropdown-item" th:href="@{'/products?category='+${c.name}}">[[${c.name}]]</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				<th:block th:if="${user==null}">
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/signin">LOGIN</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="/register">REGISTER</a></li>
+				</th:block>
+				<th:block th:if="${user!=null}">
+					<th:block th:if="${user.role=='ROLE_USER'}">
+						<li class="nav-item">
+							<div class="cart-wrapper">
+								<a class="nav-link active" aria-current="page" href="/user/cart">
+									<i class="fa-solid fa-cart-shopping cart-icon"></i>
+									<span class="cart-count">[[${countCart}]]</span>
+								</a>
+							</div>
+						</li>
 					</th:block>
-
-					<th:block th:unless="${user==null}">
-						<li class="nav-item" th:if="${user.role=='ROLE_ADMIN'}"><a
-							class="nav-link active" aria-current="page" href="/admin/"><i
-								class="fa-solid fa-house"></i> Home</a></li>
-
-						<li class="nav-item" th:if="${user.role=='ROLE_USER'}"><a
-							class="nav-link active" aria-current="page" href="/"><i
-								class="fa-solid fa-house"></i> Home</a></li>
-					</th:block>
-
-
-
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/products">Product</a></li>
-
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Category </a>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="profile-pic">[[${user.name.charAt(0)}]]</span>
+						</a>
 						<ul class="dropdown-menu">
-							<li th:each="c:${categorys}"><a class="dropdown-item"
-								th:href="@{'/products?category='+${c.name}}">[[${c.name}]]</a></li>
-
-						</ul></li>
-
-				</ul>
-
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<th:block th:if="${user==null}">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="/signin"><i
-								class="fa-solid fa-right-to-bracket"></i> LOGIN</a></li>
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="/register">REGISTER</a></li>
-
-
-					</th:block>
-
-					<th:block th:if="${user!=null}">
-						<th:block th:if="${user.role=='ROLE_USER'}">
-							<li class="nav-item"><a class="nav-link active"
-								aria-current="page" href="/user/cart"><i
-									class="fa-solid fa-cart-shopping"></i> Cart [ [[${countCart}]]
-									]</a></li>
-						</th:block>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle active" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> <i
-								class="fa-solid fa-user"></i> [[${user.name}]]
-						</a>
-							<ul class="dropdown-menu">
-								<li th:if="${user.role=='ROLE_USER'}"><a
-									class="dropdown-item" href="/user/profile">Profile</a></li>
-
-								<li th:if="${user.role=='ROLE_ADMIN'}"><a
-									class="dropdown-item" href="/admin/profile">Profile</a></li>
-
-								<li th:if="${user.role=='ROLE_USER'}"><a
-									class="dropdown-item" href="/user/user-orders">My Orders</a></li>
-								<li><a class="dropdown-item" href="/logout">Logout</a></li>
-								<li><hr class="dropdown-divider"></li>
-
-							</ul></li>
-
-						<!-- <li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="/logout"><i
-								class="fa-solid fa-right-to-bracket"></i> Logout</a></li> -->
-					</th:block>
-
-				</ul>
-
-			</div>
+							<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/profile">Profile</a></li>
+							<li th:if="${user.role=='ROLE_ADMIN'}"><a class="dropdown-item" href="/admin/profile">Profile</a></li>
+							<li th:if="${user.role=='ROLE_USER'}"><a class="dropdown-item" href="/user/user-orders">My Orders</a></li>
+							<li><a class="dropdown-item" href="/logout">Logout</a></li>
+							<li><hr class="dropdown-divider"></li>
+						</ul>
+					</li>
+				</th:block>
+			</ul>
 		</div>
-	</nav>
-	<!-- End Navbar -->
+	</div>
+</nav>
+<!-- End Navbar -->
 
-	<div th:replace="${content}"></div>
+<div class="content-wrap" th:replace="${content}"></div>
 
-	<!-- Start Premium Footer -->
-	<footer class="footer-section bg-dark pt-3 pb-2">
-		<div class="container">
-			<div class="row g-5">
-				<!-- Company Info -->
-				<div class="col-lg-4 col-md-6">
-					<div class="footer-about">
-						<a href="#" class="d-flex align-items-center mb-4 text-decoration-none">
-							<i class="fas fa-shopping-bag fa-2x text-primary me-2"></i>
-							<span class="h3 text-white mb-0">Ecom Store</span>
-						</a>
-						<p class="text-light mb-4" style="font-size: 1.1rem; opacity: 0.9;">Your premier online shopping destination in Rwanda. We deliver quality products with exceptional service.</p>
-
-						<div class="social-icons">
-							<a href="#" class="icon-circle bg-primary text-white me-2"><i class="fab fa-facebook-f"></i></a>
-							<a href="#" class="icon-circle bg-primary text-white me-2"><i class="fab fa-twitter"></i></a>
-							<a href="#" class="icon-circle bg-primary text-white me-2"><i class="fab fa-instagram"></i></a>
-							<a href="#" class="icon-circle bg-primary text-white"><i class="fab fa-linkedin-in"></i></a>
-						</div>
+<!-- Start Premium Footer -->
+<footer class="footer-section pt-3 pb-2">
+	<div class="container">
+		<div class="row g-5">
+			<!-- Company Info -->
+			<div class="col-lg-4 col-md-6">
+				<div class="footer-about">
+					<a href="#" class="d-flex align-items-center mb-4 text-decoration-none">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ffffff" class="bi bi-unity me-2" viewBox="0 0 16 16">
+							<path d="M15 11.2V3.733L8.61 0v2.867l2.503 1.466c.099.067.099.2 0 .234L8.148 6.3c-.099.067-.197.033-.263 0L4.92 4.567c-.099-.034-.099-.2 0-.234l2.504-1.466V0L1 3.733V11.2v-.033.033l2.438-1.433V6.833c0-.1.131-.166.197-.133L6.6 8.433c.099.067.132.134.132.234v3.466c0 .1-.132.167-.198.134L4.031 10.8l-2.438 1.433L7.983 16l6.391-3.733-2.438-1.434L9.434 12.3c-.099.067-.198 0-.198-.133V8.7c0-.1.066-.2.132-.233l2.965-1.734c.099-.066.197 0 .197.134V9.8z"/>
+						</svg>
+						<span class="h3 text-white mb-0">Fruitmart</span>
+					</a>
+					<p class="text-light mb-4" style="font-size: 1.1rem; opacity: 0.9;">Your premier online fruit shopping destination. We deliver fresh, quality fruits with exceptional service.</p>
+					<div class="social-icons d-flex justify-content-start">
+						<a href="https://facebook.com" target="_blank" class="icon-circle me-2"><i class="fab fa-facebook-f"></i></a>
+						<a href="https://twitter.com" target="_blank" class="icon-circle me-2"><i class="fab fa-twitter"></i></a>
+						<a href="https://instagram.com" target="_blank" class="icon-circle me-2"><i class="fab fa-instagram"></i></a>
+						<a href="https://linkedin.com" target="_blank" class="icon-circle"><i class="fab fa-linkedin-in"></i></a>
 					</div>
 				</div>
-
-				<!-- Quick Links -->
-				<div class="col-lg-2 col-md-6">
-					<h5 class="text-white mb-4" style="font-size: 1.25rem;">Quick Links</h5>
-					<ul class="list-unstyled">
-						<li class="mb-2"><a href="/" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Home</a></li>
-						<li class="mb-2"><a href="/products" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Products</a></li>
-						<li class="mb-2"><a href="/about" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">About Us</a></li>
-						<li class="mb-2"><a href="/contact" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Contact</a></li>
-						<li class="mb-2"><a href="/blog" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Blog</a></li>
-						<li><a href="/faq" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">FAQs</a></li>
-					</ul>
-				</div>
-
-				<!-- Categories -->
-				<div class="col-lg-2 col-md-6">
-					<h5 class="text-white mb-4" style="font-size: 1.25rem;">Categories</h5>
-					<ul class="list-unstyled">
-						<li class="mb-2"><a href="/products?category=Electronics" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Electronics</a></li>
-						<li class="mb-2"><a href="/products?category=Fashion" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Fashion</a></li>
-						<li class="mb-2"><a href="/products?category=Home" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Home & Garden</a></li>
-						<li class="mb-2"><a href="/products?category=Beauty" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Beauty</a></li>
-						<li><a href="/products?category=Sports" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Sports & Outdoors</a></li>
-					</ul>
-				</div>
-
-				<!-- Contact Info -->
-				<div class="col-lg-4 col-md-6">
-					<h5 class="text-white mb-4" style="font-size: 1.25rem;">Contact Us</h5>
-					<ul class="list-unstyled text-light" style="opacity: 0.9;">
-						<li class="mb-3 d-flex align-items-start">
-							<i class="fas fa-map-marker-alt text-primary mt-1 me-3" style="font-size: 1.1rem;"></i>
-							<span style="font-size: 1.05rem;">AUCA Gishushu, Kigali, Rwanda</span>
-						</li>
-						<li class="mb-3 d-flex align-items-start">
-							<i class="fas fa-phone-alt text-primary mt-1 me-3" style="font-size: 1.1rem;"></i>
-							<span style="font-size: 1.05rem;"><a href="tel:+250792397681" class="text-light text-decoration-none hover-text-primary">+250 792 397 681</a></span>
-						</li>
-						<li class="mb-3 d-flex align-items-start">
-							<i class="fas fa-envelope text-primary mt-1 me-3" style="font-size: 1.1rem;"></i>
-							<span style="font-size: 1.05rem;"><a href="mailto:muhirehillary720@gmail.com" class="text-light text-decoration-none hover-text-primary">muhirehillary720@gmail.com</a></span>
-						</li>
-						<li class="d-flex align-items-start">
-							<i class="fas fa-clock text-primary mt-1 me-3" style="font-size: 1.1rem;"></i>
-							<span style="font-size: 1.05rem;">Mon-Fri: 8AM - 6PM<br>Sat-Sun: 9AM - 4PM</span>
-						</li>
-					</ul>
-				</div>
 			</div>
-
-			<hr class="my-4 bg-secondary" style="opacity: 0.2;">
-
-			<!-- Payment Methods and Copyright -->
-			<div class="row align-items-center">
-				<div class="col-md-6 mb-3 mb-md-0">
-					<div class="payment-methods">
-						<span class="text-light me-2" style="font-size: 1.05rem; opacity: 0.9;">We accept:</span>
-						<i class="fab fa-cc-visa text-light me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
-						<i class="fab fa-cc-mastercard text-light me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
-						<i class="fab fa-cc-paypal text-light me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
-						<i class="fab fa-cc-mtn text-light me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
-						<i class="fab fa-cc-airtel text-light" style="font-size: 1.5rem; opacity: 0.9;"></i>
-					</div>
-				</div>
-				<div class="col-md-6 text-md-end">
-					<p class="text-light mb-0" style="font-size: 1.05rem; opacity: 0.9;">&copy; 2023 Ecom Store. All rights reserved.</p>
-				</div>
+			<!-- Quick Links -->
+			<div class="col-lg-2 col-md-6">
+				<h5 class="text-white mb-4" style="font-size: 1.25rem;">Quick Links</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2"><a href="/" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Home</a></li>
+					<li class="mb-2"><a href="/products" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Products</a></li>
+					<li class="mb-2"><a href="/about" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">About Us</a></li>
+					<li class="mb-2"><a href="/contact" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Contact</a></li>
+					<li class="mb-2"><a href="/blog" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Blog</a></li>
+					<li><a href="/faq" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">FAQs</a></li>
+				</ul>
+			</div>
+			<!-- Categories -->
+			<div class="col-lg-2 col-md-6">
+				<h5 class="text-white mb-4" style="font-size: 1.25rem;">Categories</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2"><a href="/products?category=Citrus" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Citrus</a></li>
+					<li class="mb-2"><a href="/products?category=Berries" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Berries</a></li>
+					<li class="mb-2"><a href="/products?category=Tropical" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Tropical</a></li>
+					<li class="mb-2"><a href="/products?category=Stone Fruits" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Stone Fruits</a></li>
+					<li><a href="/products?category=Exotic" class="text-light text-decoration-none hover-text-primary" style="font-size: 1.05rem; opacity: 0.9;">Exotic</a></li>
+				</ul>
+			</div>
+			<!-- Contact Info -->
+			<div class="col-lg-4 col-md-6">
+				<h5 class="text-white mb-4" style="font-size: 1.25rem;">Contact Us</h5>
+				<ul class="list-unstyled text-light" style="opacity: 0.9;">
+					<li class="mb-3 d-flex align-items-start">
+						<i class="fas fa-map-marker-alt mt-1 me-3" style="font-size: 1.1rem;"></i>
+						<span style="font-size: 1.05rem;">Kigali GASABO, GACURIRO, Rwanda</span>
+					</li>
+					<li class="mb-3 d-flex align-items-start">
+						<i class="fas fa-phone-alt mt-1 me-3" style="font-size: 1.1rem;"></i>
+						<span style="font-size: 1.05rem;"><a href="tel:+250781440979" class="text-light text-decoration-none hover-text-primary">+250 781 440 979</a></span>
+					</li>
+					<li class="mb-3 d-flex align-items-start">
+						<i class="fas fa-envelope mt-1 me-3" style="font-size: 1.1rem;"></i>
+						<span style="font-size: 1.05rem;"><a href="mailto:habinezachristian60@gmail.com" class="text-light text-decoration-none hover-text-primary">habinezachristian60@gmail.com</a></span>
+					</li>
+					<li class="d-flex align-items-start">
+						<i class="fas fa-clock mt-1 me-3" style="font-size: 1.1rem;"></i>
+						<span style="font-size: 1.05rem;">Mon-Fri: 9AM - 5PM</span>
+					</li>
+				</ul>
 			</div>
 		</div>
-	</footer>
-	<!-- End Premium Footer -->
+		<hr class="my-4 bg-secondary" style="opacity: 0.2;">
+		<!-- Payment Methods and Copyright -->
+		<div class="row align-items-center">
+			<div class="col-md-6 mb-3 mb-md-0">
+				<div class="payment-methods">
+					<span class="text-light me-2" style="font-size: 1.05rem; opacity: 0.9;">We accept:</span>
+					<i class="fab fa-cc-visa me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
+					<i class="fab fa-cc-mastercard me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
+					<i class="fab fa-cc-paypal me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
+					<i class="fab fa-cc-mtn me-2" style="font-size: 1.5rem; opacity: 0.9;"></i>
+					<i class="fab fa-cc-airtel" style="font-size: 1.5rem; opacity: 0.9;"></i>
+				</div>
+			</div>
+			<div class="col-md-6 text-md-end">
+				<p class="text-light mb-0" style="font-size: 1.05rem; opacity: 0.9;">© 2025 Fruitmart. All rights reserved.</p>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- End Premium Footer -->
 
-
-	<!-- Jquery Validation Library  -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
-	<script type="text/javascript" src="../js/script.js"></script>
-	<!-- End  -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+<script src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
